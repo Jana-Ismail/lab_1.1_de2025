@@ -24,6 +24,31 @@ def main():
     df.columns = clean_header
     df.to_csv("people_clean_header_ismail.csv", index=False)
 
+    # Part 4
+    file_path = construct_file_path("people_nulls.csv")
+    data_types = {
+        'age': 'Int64',
+        'height': 'Int64',
+        'years_played_sports': 'Int64'
+    }
+    df = pd.read_csv(file_path, na_values=['NULL'], dtype=data_types)
+    print(df)
+    df.to_csv("people_nulls_ismail.csv", index=False, na_rep='null')
+
+    # Part 5
+    file_path = construct_file_path("people_none.csv")
+    df = pd.read_csv(file_path)
+    df = df.replace(['NONE', 'none', 'None'], pd.NA)
+    print(df)
+    df.to_csv('people_none_ismail.csv', index=False, na_rep='null')
+
+    # Part 6
+    file_path = construct_file_path("people_broken.csv")
+    df = pd.read_csv(file_path)
+    df = df.replace({'NONE': pd.NA, 'null': pd.NA, 'NULL': pd.NA, "'null'": pd.NA})
+    df.columns = header
+    print(df)
+    df.to_csv
 
 # Use os.path.join to construct the file path that is compatible with all operating systems
 def construct_file_path(filename):
